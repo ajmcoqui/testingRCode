@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1546894755535.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "46465D65",
+    "lastKnownWriteTime" : 1546910783,
+    "last_content_update" : 1546910783556,
+    "path" : "~/work/rstudio_conf/testingRCode/conf2019testing/R/uniquify_things.R",
+    "project_path" : "R/uniquify_things.R",
+    "properties" : {
+        "cursorPosition" : "17,1",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

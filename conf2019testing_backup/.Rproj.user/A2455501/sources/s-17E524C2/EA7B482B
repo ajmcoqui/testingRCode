@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1546893455377.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1430763184",
+    "id" : "EA7B482B",
+    "lastKnownWriteTime" : 1546907621,
+    "last_content_update" : 1546907621589,
+    "path" : "~/work/rstudio_conf/testingRCode/conf2019testing/R/add_things.R",
+    "project_path" : "R/add_things.R",
+    "properties" : {
+        "cursorPosition" : "8,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

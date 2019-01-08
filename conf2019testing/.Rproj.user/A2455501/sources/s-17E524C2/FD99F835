@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1546911644817.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1746855558",
+    "id" : "FD99F835",
+    "lastKnownWriteTime" : 1546912818,
+    "last_content_update" : 1546912818804,
+    "path" : "~/work/rstudio_conf/testingRCode/conf2019testing/tests/testthat/test-print_things.R",
+    "project_path" : "tests/testthat/test-print_things.R",
+    "properties" : {
+        "cursorPosition" : "15,2",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
