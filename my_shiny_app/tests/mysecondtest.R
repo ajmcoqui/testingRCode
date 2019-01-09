@@ -1,0 +1,11 @@
+app <- ShinyDriver$new("../")
+app$snapshotInit("mysecondtest")
+
+app$setInputs(xcol = "Petal.Length")
+app$setInputs(ycol = "Petal.Width")
+app$snapshot()
+app$setInputs(clusters = 4)
+app$setInputs(clusters = 5)
+app$setInputs(clusters = 6)
+app$setInputs(clusters = 7)
+app$snapshot()

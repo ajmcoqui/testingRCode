@@ -7,5 +7,9 @@ test_that("uniquify handles character vectors", {
 })
 
 # test_that("uniquify handles factors", {
-#   expect_equal(uniquify(iris$Specied), c("setosa", "versicolor", "verginica"))
+#   expect_equal(uniquify(iris$Species), c("setosa", "versicolor", "verginica"))
+# })
+
+# test_that("uniquify does not handle factors", {
+#   expect_error(uniquify(iris$Species), "non-character argument")
 # })

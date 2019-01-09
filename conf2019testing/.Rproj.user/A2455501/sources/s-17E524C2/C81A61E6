@@ -7,12 +7,12 @@
     "folds" : "",
     "hash" : "0",
     "id" : "C81A61E6",
-    "lastKnownWriteTime" : 1546955875,
-    "last_content_update" : 1546955875475,
+    "lastKnownWriteTime" : 1547042617,
+    "last_content_update" : 1547042617112,
     "path" : "~/work/rstudio_conf/testingRCode/conf2019testing/tests/testthat/test-uniquify_things.R",
     "project_path" : "tests/testthat/test-uniquify_things.R",
     "properties" : {
-        "cursorPosition" : "9,78",
+        "cursorPosition" : "11,0",
         "scrollLine" : "0"
     },
     "relative_order" : 6,
