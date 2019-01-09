@@ -52,13 +52,6 @@ Code is written in the service of analysis
 
 It is a means to an end, but it is also an artifact
 
-???
-A tool that needs to be kept sharpened to do the best job when put to use
-An auxiliary outcome of the analysis; as such, it needs care and feeding to maintain so that it's easy to update or reproduce the analysis
-Collaborate with others on larger projects, makes it easier to work simultaneously with and transfer knowledge to your colleagues
-The glory of open-source code, if you so choose
-The "artifact" thing is important - your code is not temporary (at least not if you ever want to run this again), and should not be an afterthought
-
 ---
 
 class: panel-narrow-slide, left
@@ -73,33 +66,6 @@ Characteristics of good code:
 - Longevity
 - Scalability
 
-???
-What do we need from the code? Ideally, we want:
-- Reliability
-  - Reliable and correct outcomes; code does what it should in all scenarios
-  - You’ve created a gorgeous Shiny application and you want to make sure that when you publish it, it won’t crash when your manager uses it
-  - Confidence that integration points will not break without warning - regressions (bugs created by fixing other bugs)
-  
-- Reproducibility
-  - You and others can run the same code with the same data and get the same results
-  - You may have seen Garrett Grolemund's keynote at EARL 2018 regarding the reproducibility crisis...
-
-- Flexibility
-  - You’ve got a complicated function and you want to know if it works with different data sets, inputs, or contexts
-  - Extensibility: easy to expand upon
-  
-- Longevity / ease of maintenance
-  - long-term relevance, which means updates - easily maintainable
-  - readable, followable/traceable
-  - you want to make it easy to iterate - small changes over time are easier to absorb than a huge code drop. Compare to learning an instrument (30 minutes a day produces better results than 3 hours on a Sunday); contributing to a college fund ($20 a week is easier than finding $1040 to add at the end of the year)
-  - You’ve written a cool script or report that has become very useful to you and your team, and you want it to be as easy as possible to maintain and improve
-  - You’ve decided to write a package to share, or for your personal use to avoid code duplication and make changes in one place instead of in 16 different projects with copy-and-pasted code.
-
-- Scalability
-  - flexibility to handle other data sets, more users, additional variables
-
-Need to be able to trust the outcome of the analysis, and therefore the quality of the code
-
 ---
 
 class: panel-narrow-slide, left
@@ -110,13 +76,6 @@ How do we determine the quality of our code?
 
 - Execution feedback
 - User feedback
-
-???
-Need to be able to trust the outcome of the analysis, and therefore the quality of the code
-Execution feedback
- - Console output, logs, errors, warnings
-User feedback
- - Can wait until it breaks in the field, or leads researchers, analysts, or businesses astray, but it's better to check it yourself before you release it to the world.
 
 ---
 
@@ -129,11 +88,6 @@ How do we determine the quality of our code?
 - Execution feedback
 - User feedback
 - Measure it with tests: functional, integration, performance
-
-???
-Measure it with tests
- - Quantify the output of the script
- - Explicitly write separate R code designed to exercise the functional (analysis) code, and check that it does what you think it should
 
 ---
 
@@ -152,11 +106,6 @@ How do we determine the quality of our code?
   - Visibility into internal dependencies
   - Easily trace function, meaning of code
 
-???
-When we talk about software testing - and R code is software - we generally divide it into manual and automated types. Manual is great during active development (check as you go), but you should also consider building those manual, ad hoc tests into a set of coded tests that run automatically, or can be easily triggered to run manually, when you update or augment the functional code. The earlier you find a problem, the easier it is to fix because you're head's already in the code. If you find it three months later, after you've moved on to other things, tracking it down becomes much harder.
-
-It's less work to build it in from the beginning than to wrestle with the fallout later; a little extra work now for big benefits later; a classic case of an ounce of prevention &gt; pound of cure
-
 ---
 class: panel-narrow-slide, left
 
@@ -166,14 +115,6 @@ class: panel-narrow-slide, left
 - Practically, start with the major functions, inputs, and integration points
 - Run manual tests in the console during development
 - Convert them to coded tests when the basic functionality is established
-
-???
-- Integration points are the points in the code at which values are handed off between functions
-- You will iterate on the coded tests as you iterate on the functional code, so the function doesn't have to be perfect before you create its tests - put them in early
-- In fact, you have the option to do what they call Test-Driven Development, where you write the tests first to lay out the expectations of the function, then write the code that makes those tests pass
-
-- The act of writing tests will likely prompt you to reevaluate the structure of your code, and potentially refactor it to make it easier to isolate the functions for testing - and this is a very good thing. It sounds like extra work, but making your code modular enough to test - made up of many small functions instead of monolithic "God" functions or files that do everything in one huge code block - will also makes it easier to maintain since it will be easier to find functions and understand their scope. Your code will be cleaner, and Future You will be delighted not to have to deal with spaghetti code full of unclear or convoluted dependencies
-- Jenny Bryan's talk at useR2018!
 
 ---
 
@@ -187,9 +128,6 @@ class: panel-narrow-slide, left
 - Convert them to coded tests when the basic functionality is established
 
 .center[![Image credit: https://images-gmi-pmc.edge-generalmills.com/8890dc0a-ec93-4adf-b496-d6b264b56818.jpg](images/spaghetti.jpg)]
-
-???
-- I'm not saying that's necessarily what you have today, but this clearly should be avoided at all costs if you want to be able to work with the code at a later date.
 
 ---
 
@@ -206,13 +144,6 @@ Test strategy
 - Figure out where it touches other code
 - Consider performance
 
-???
-You don't have to unravel the spaghetti before you write your first test. Start small, add a few tests for your most important or fragile functions, and go from there.
-
-- Big picture: pick a project and identify its most crucial functionality [give example]
-- Inputs, outputs, integration points
-- Performance: want to mention because it's often important, but we're going to focus on functional testing today
-
 ---
 
 class: panel-narrow-slide, left
@@ -224,11 +155,6 @@ class: panel-narrow-slide, left
 - Try different inputs, data, or formats
 - Think of potential user mistakes
 - Be careful of your global environment
-
-???
-- Break the test strategy into the individual pieces, or units, you want to test
-- Commonly done by testing the individual functions on which your script relies, to make sure they are running as expected
-- Global environment may contain variables, values, or options that won't be available to a clean environment once your script is deployed. [Recommend restarting R and sourcing the script before testing?]
 
 ---
 
@@ -243,22 +169,11 @@ class: panel-narrow-slide, left
 - Run when the functional code changes, triggered manually or as part of your CI pipeline (if applicable)
 - Pay attention to the results
 
-???
-- Often called unit tests in this context
-- "While you are testing your code in this workflow, you’re only doing it informally. The problem with this approach is that when you come back to this code in 3 months time to add a new feature, you’ve probably forgotten some of the informal tests you ran the first time around. This makes it very easy to break code that used to work."
-- Called automated tests when you hook them into your build process, especially if you have a Continuous Integration tool like Jenkins or Travis (TeamCity, GitLab CI, Buddy, etc.). "While turning casual interactive tests into reproducible scripts requires a little more work up front, it pays off in four ways: fewer bugs, better code structure, easier restarts, robust code"
-- Consider running full unit test suite for the entire project or package when making changes to each piece - catch integration problems
-- We'll come back to the "Adapt functional code to make it easier to test" advice
-
-- Now that I've convinced you that writing tests is a good idea, let me show you how easy it is to get started.
-
 ---
 
 class: panel-narrow-slide, left
 
-# Demo `testthat`
-
-[Test workflow](http://r-pkgs.had.co.nz/tests.html#test-workflow)
+# `testthat`
 
 
 ```r
@@ -275,75 +190,11 @@ usethis::use_testthat()
 usethis::use_test("name")
 ```
 
-???
-- So, where to start? In my opinion, the easiest way to get started is to use the `testthat` package from the tidyverse
-- `testthat` provides functions that make it easy to describe what you expect a function to do, including catching errors, warnings, and messages.
-  - It easily integrates in your existing workflow, whether it’s informal testing on the command line, building test suites, or using R CMD check.
-  - When running tests, it displays test progress visually, showing a pass, fail, or error for every expectation. If you’re using the terminal or a recent version of RStudio, it’ll even colour the output.
-- To get it set up, use the `usethis` package: a workflow package, also from the tidyverse, that automates repetitive tasks that arise during project setup and development, both for R packages and non-package projects.
-
-- Extrapolate: testing can force you to write smaller functions in more modular code - making it easy to test also makes it easy to read and maintain. Easier to find source of later problems, particularly if you’ve commented the code well. Cleaner code, clearer dependencies, less stress, more confidence
-
-Preview IDE: there is now a "Run Tests" button on the top of the files in the tests/testthat folder, that allows you to run the tests from the current file.
-
-- Can run testthat functions interactively, as well
-- Use it to test error handling, as well, not just positive but negative testing
-- Put self in shoes of user; what could be common mistakes or typos? The act of doing this exercise to determine tests may (should?) inspire you to enhance error handling, or refactor code to be more logical, explicit or descriptive
-- Start by establishing your success criteria, how you know if you’ve solved the problem.
-- Readable tests give you more confidence that they’re correct.
-- Follow good coding practices here, too: DRY, modular design, etc.
-- Side note: CRAN (http://r-pkgs.had.co.nz/tests.html#test-cran): If you plan to submit your package to CRAN, I recommend referring to the Testing section of the *R Packages* book for additional things to consider in your tests.
-
-- Show how easy it is to set up `testthat`
-- If you’re using RStudio, press Cmd/Ctrl + Shift + T (or run devtools::test() if not) to run all the tests in a package.
-- Once you've got `testthat` installed - use immediately on console for quick win
-
-- `usethis::use_testthat()`
-This will:
-- Create a tests/testthat directory.
-- Add testthat to the Suggests field in the DESCRIPTION.
-- Create a file tests/testthat.R that runs all your tests when `R CMD check` runs.
-
-Once you’re set up the workflow is simple:
-- Modify your code or tests.
-- Test your package with Ctrl/Cmd + Shift + T in RStudio, or `devtools::test()` in the console.
-- Repeat until all tests pass.
-
-Now, you also want your test code to be readable and maintainable, so break up the suite of tests into thematically (usually functionally) similar batches, each in a separate file.
-- "A test file lives in tests/testthat/. Its name must start with test."
-- "Tests are organised hierarchically: expectations are grouped into tests which are organised in files"
-- "Each test should have an informative name and cover a single unit of functionality. The idea is that when a test fails, you’ll know what’s wrong and where in your code to look for the problem. You create a new test using test_that(), with test name and code block as arguments. The test name should complete the sentence “Test that …”. The code block should be a collection of expectations."
-- What to test: focus on external interface, fragile code (don't need simple code), one test per behavior (maintainability), one test per bug you discover (could even consider TDD)
-- Same principles for functional code applied to tests: write helpers, DRY, KISS, etc. You are adding to the code you need to maintain; it's for a different and important purpose, but it should still adhere to the principles we talked about earlier
-- See ["Testing"](http://r-pkgs.had.co.nz/tests.html) in *R packages*
-- Show code in slide; show directory structure in slide after running commands to set up; show example code in tests; put errors in slides, as well (time to demo in IDE?)
-- Pick small package, function as example, work through in detail
-
-- Expectations available: https://testthat.r-lib.org/reference/index.html
-
-Ideas:
-- Example: set up package, function, and tests. Change function - test will fail. Update test, it will pass. Best example is changing function and having tests fail for a different function that relies on the original - good example of forgotten dependencies. Now I don’t *have* to remember them because I have good tests. (Integration tests)
-- Example: typo that affects downstream results; especially effective with a plot downstream
-- Example: test code that accesses DBs, APIs
-- Example: Write something simple, pretend come along several months ago and need to modify. Talk about how modularity helps, tests continue to pass when I change function. Contrast with a god class
--[Example in R bloggers](https://www.r-bloggers.com/unit-testing-with-r/): "Running your unit tests each time you make changes can help you pinpoint regressions in your code.  Unit tests can also help you start with your code. It can happen that sometimes you don't know exactly how to start; well you could start by writing a unit test that returns the result you want to have and then try to write the code to make that unit test pass. This is called test-driven development."
-
-Steps:
-- Create small package with a couple of functions in different files. Run it - success
-- Add a bug such that it still runs, but the results are incorrect - Run it - success, but not really
-- Add unit tests (already written) to test assumptions, base cases, negative, all inputs, all math? Run them on buggy code - failure
-- Fix bug, run tests, pass
-- Imagine a larger package, with multiple files and many functions - write tests so you are aware when changes in one place break other places - integration tests (example?)
-
 ---
 
 class: panel-narrow-slide, left
 
-# Demo `shinytest`
-
-Ideas:
-- https://rstudio.github.io/shinytest
-
+# `shinytest`
 
 
 ```r
@@ -361,77 +212,19 @@ testApp("path/to/app")           # all tests
 testApp("path/to/app", "mytest") # individual test
 ```
 
-Reference: 
- - https://rstudio.github.io/shinytest/articles/shinytest.html
- - https://rstudio.github.io/shinytest/articles/in-depth.html
+---
 
-???
-- snapshot-based testing strategy
-- "Having automated tests can alert you to these kinds of problems quickly and with almost zero effort, after the tests have been created."
-- Examples in the intro article around what might change to break the app - do that in demo, point out that your end user may find this, point out that errors may not be helpful in determining the source of the problem - tests can point you right there.
-- What to test for best bang for buck
-- demo?
+class: panel-narrow-slide, left
 
-- https://rstudio.github.io/shinytest/articles/shinytest.html
-- After you get your Shiny application to a state where it works, it’s often useful to have an automated system that checks that it continues to work as expected. There are many possible reasons for an application to stop working. These reasons include:
+# Designing for ease of testing
 
-- An ugpraded R package has different behavior. (This could include Shiny itself!)
-- You make modifications to your application.
-- An external data source stops working, or returns data in a changed format.
+Good software practices
 
-- One way to detect these problems is with manual testing – in other words, by having a person interact with the app in a browser – but this can be time-intensive, inconsistent, and imprecise. Having automated tests can alert you to these kinds of problems quickly and with almost zero effort, after the tests have been created.
-
-- The `shinytest` package provides tools for creating and running automated tests on Shiny applications.
-
-- Shinytest uses snapshot-based testing strategy. The first time it runs a set of tests for an application, it performs some scripted interactions with the app and takes one or more snapshots of the application’s state. These snapshots are saved to disk so that future runs of the tests can compare their results to them.
-
-- To create tests, the easiest method is to use the recordTest() function. This launches the application in a web browser and records your interactions with the application. These interactions are saved in a .R file, and are run using the strategy described above.
-
-This is the general procedure for recording tests:
-
-- Run recordTest() to launch the app in a test recorder.
-- Create the tests by interacting with the application and telling the recorder to snapshot the state at various points.
-- Quit the test recorder. When you do this, three things will happen:
-  - The test script will be saved in a .R file in a subdirectory of the application named tests/.
-  - If you are running in the RStudio IDE, it will automatically open this file in the editor.
-  - The test script will be run, and the snapshots will be saved in a subdirectory of the tests/ directory.
-
-- In a separate R process, this launches the Shiny application to be tested. We’ll refer to this as the target app. This also launches a special Shiny application in the current R process which displays the target app in an iframe and has some controls outside the iframe. We’ll refer to this as the recorder app.
-- On the left is the target app (in this case, the “Shiny Widgets Gallery”), and on the right is the recorder app (titled “Test event recorder”). Note that you may need to make the browser window wider because the recorder panel occupies some space.
-- The panel on the right displays some controls for the test recorder, as well as a list of Recorded events. As you interact with the target app – in other words, when you set inputs on the app – you will see those interactions recorded in the Recorded events list.
-- For testing a Shiny application, setting inputs is only one part. It’s also necessary to check that the application produces the correct outputs. This is accomplished by taking snapshots of the application’s state.
-- There are two ways to record output values. One way is to take a snapshot of the application’s state. This will record all input values, output values, and exported values (more on exported values later). To do this, click the “Take snapshot” button on the recorder app.
-- When you are done recording a sequence of events, click on the “Save script and exit test event recorder” button. If you are in the RStudio IDE, it will open the test script in the tests/ subdirectory of the application. In this case, the name of the script is mytest.R
-- When you quit the test recorder, it will automatically run the test script. There are three separate components involved in running the tests:
-  - First is the test driver. This is the R process that coordinates the testing and controls the web browser. When working on creating tests interactively, this is the R process that you use.
-  - Next is the Shiny process, also known as the server. This is the R process that runs the target Shiny application.
-  - Finally, there is the web browser, also known as the client, which connects to the server. This is a headless web browser – one which renders the web page internally, but doesn’t display the content to the screen (PhantomJS).
-- When you exit the test recorder, it will by default automatically run the test script, and will print something like this (show)
-- Behind the scenes, it runs testApp(). You can manually run the tests with this:
-`testApp("my_shiny_app", "mytest")`
-- This will play back the interactions and record snapshots, as specified in the test script. The very first time the tests are run, they will be saved in a subdirectory of the app called tests/mytest-expected. These are the expected results, and future test runs will be compared against them.
-- If you are using a source control system (like git), you should check in the expected results.
-- After the initial test run, you can run the tests again in the future to check for changes in your application’s behavior. If there are no changes to the snapshots, you will just see something like this, with no additional output:
-`testApp("path/to/app")`
-- The results are saved to tests/mytest-current, and compared against the saved results in tests/mytest-expected. If the results are exactly the same, then the test is considered successful. It will return to the console with no additional output, and delete the tests/mytest-current directory.
-- If there are any differences between the current and expected results, you’ll see output like this:
-```
-Running mytest.R 
-====== Comparing mytest ...
-  Differences detected between mytest-current/ and mytest-expected/:
-
-    Name         Status      
-    001.json  != Files differ
-    001.png   != Files differ
-Would you like to view the differences between expected and current results [y/n]? 
-```
-- If you press y and then Enter, it will open a Shiny application which shows the differences between the expected and current results. For screenshots, the differences will be highlighted in red. You can also choose different ways of viewing the differences in screenshots. 
-- After inspecting the changes, you can choose to update the expected results (that is, replace the old expected results with the new current results), or to just quit without updating.  You should update the results if the changes are expected. You should quit without updating if the changes are unexpected.
-- In the example above, we had a single test script, named mytest.R. If you want to have more than one set of tests for an application, you can record new tests, each with a different name. You can enter the name when recording your tests
-- When you run testApp("path/to/app"), it will run all the tests scripts in the application’s tests/ directory.
-- Shinytest can be used with interactive R markdown documents that use runtime: shiny (sometimes also referred to as Shiny documents). This includes those that use the flexdashboard package.
-- Shiny documents have some differences compared to regular Shiny applications, and so the tests are slightly different. An example of an interactive Rmd with tests is in the `shinytest` GitHub repo.
-- More details and examples at https://rstudio.github.io/shinytest/articles/shinytest.html, and a more in-depth discussion at https://rstudio.github.io/shinytest/articles/in-depth.html
+- Goals
+  - Reliability, Reproducibility, Flexibility, Longevity, Scalability
+  - Modular design for ease of testing and maintenance (DRY, KISS)
+  - Good user experience
+  - High degree of confidence
 
 ---
 
@@ -441,28 +234,17 @@ class: panel-narrow-slide, left
 
 Good software practices
 
+- Goals
+  - Reliability, Reproducibility, Flexibility, Longevity, Scalability
+  - Modular design for ease of testing and maintenance (DRY, KISS)
+  - Good user experience
+  - High degree of confidence
 - Modular design
   - Decoupling, code isolation
   - DRY: Don't Repeat Yourself
   - KISS: Keep It Simple, Stupid
   - Consistent code style
 
-???
-Good tests go hand-in-hand with good software design
-If you're starting from scratch, or up for a little refactoring of an existing project, keep good software practices in mind
-Refactoring: the process of restructuring existing computer code without changing its external behavior. Makes it easier to understand, cheaper to modify. (Martin Fowler book) Tests give you the freedom to refactor.
-
-- Modular programming - make it easy to find your functions
-- Decoupling - use helper functions, source helper function file, targeted files &gt; "onion" function with nested conditionals and hundreds of lines
-- DRY - just one place to update when you decide to change something; eliminate copy-paste (mistakes)
-  - create functions if you find yourself repeating code; rule of three
-  - create intermediate object for reuse
-- Code isolation - impact of environment (R4DS 288)
-- Code style - readability, understandability, DRY (R4DS 272), consistency (always snake_case, descriptive name, etc.), comments (for the “why”; shortcuts in IDE R4DS 275)
-- Consistency - efficient collaboration, including with Future You: consistent style, comments, version control, feedback and code reviews from colleagues. ERP 164.  Reformatting code in the IDE ERP 165
-
-All these things make your code easier to test, and in the bargain, make it easier to maintain because you can find what you need easily, and update with confidence (?)
-
 ---
 
 class: panel-narrow-slide, left
@@ -471,6 +253,11 @@ class: panel-narrow-slide, left
 
 Good software practices
 
+- Goals
+  - Reliability, Reproducibility, Flexibility, Longevity, Scalability
+  - Modular design for ease of testing and maintenance (DRY, KISS)
+  - Good user experience
+  - High degree of confidence
 - Modular design
   - Decoupling, code isolation
   - DRY: Don't Repeat Yourself
@@ -479,14 +266,6 @@ Good software practices
 - User experience
   - Ease of use
   - Error handling
-
-???
-User experience
-- Ease of use: UX testing: intuitive? consistent signatures and formats? In apps, is it easy to find the controls in the UI? Harder to automate this
-- Error handling: catching and handling errors in the code, and presenting feedback to the user in the form of helpful, actionable error messages is important [present examples of bad and good messages]. Fail fast - check inputs right at beginning, "guard clause", emphasize "happy path"
-- Anticipate errors and edge cases
-
-The point of all this is to have reliable, maintainable, user-friendly scripts and applications.
 
 ---
 
@@ -498,26 +277,6 @@ But remember:
 
 The tests won't ensure high quality in your script or application; they just verify that it's there.
 
-???
-You need to create the high-quality code and functionality, and use the tests to prove it.
-Tests encourage good design and behavior, and give you confidence that what you've built is solid.
-Side effect: tests as documentation
-
----
-
-class: panel-narrow-slide, left
-
-# Recap
-
-- Reliability, Reproducibility, Flexibility, Longevity, Scalability
-- Modular design for ease of testing and maintenance (DRY, KISS)
-- Good user experience
-- High degree of confidence
-
-???
-- Think carefully about the functional intent and user behavior, and organize accordingly from the start
-- Develop habits for incorporating testing into your code development workflow
-
 ---
 
 class: panel-narrow-slide, left
@@ -527,7 +286,7 @@ class: panel-narrow-slide, left
 To read/watch:
 
 - [*R packages*](http://r-pkgs.had.co.nz/package.html), particularly the chapter on [Testing](http://r-pkgs.had.co.nz/tests.html)
-- [*Advanced R*](http://adv-r.had.co.nz/)
+- [*Advanced R*](http://adv-r.had.co.nz/), for advice on good software design
 - [Jenny Bryan's video](https://www.youtube.com/watch?v=7oyiPBjLAWY) on ["Code smells and feels"](https://rstd.io/code-smells) from useR!2018
 
 ---
@@ -560,15 +319,6 @@ To use:
 - [covr](https://cran.rstudio.com/web/packages/covr/index.html) and [covrpage](https://github.com/metrumresearchgroup/covrpage)
 ]
 
-???
-- testthis: Utility functions and 'RStudio' addins to ease the life of people using 'testthat', 'devtools' and 'usethis' in their package development workflow. Hotkeyable addins are provided for such common tasks as switching between a source file and an associated test file, or running unit tests in a single file. 'testthis' also provides utility function to manage and run tests in subdirectories of the test/testthat 
-- testthis: In particular, `test_this()` "reloads the package and runs tests associated with the currently open R script file, and there’s also a function for opening the test file associated with the current R script. Edit: as of version 2.0.0 devtools itself features functions for testing single files."
-- assertive:  Richard Cotton's package for runtime testing. "An R package that provides readable check functions to ensure code integrity." Geared toward checking inputs, especially, check the state of your variables. “(You can think of the assert functions as more specific versions of `base::stopifnot` that make your code easier to read and give more informative error messages.)"
-- assertive: "`testthat` is an excellent package for writing unit tests, and I recommend that you use it. Unit tests are a form of development-time testing. That is, you write the tests while you develop your code in order to check that you haven't made any mistakes. `assertive`, and assertions in general, are for run-time testing. That is, you include them in your code to check that the user hasn't made a mistake while running your code."
-- testit: Yuhui Xie's package for tiny and targeted for testing with True/False output only
-- covr: track and report code coverage for your package and (optionally) upload the results to a coverage service like 'Codecov' &lt;http://codecov.io&gt; or 'Coveralls' &lt;http://coveralls.io&gt;
-- covrpage creates a detailed coverage report that can serve as a README for your test folder.
-
 ---
 
 class: panel-narrow-slide, left
@@ -581,21 +331,6 @@ class: panel-narrow-slide, left
 - Integrate tests into CI pipeline
 - Bask in the warm glow of reliability, maintainability, and transparency
 
-???
-- Assuming you are using source control, which you should be because it makes it easy to back out changes that broke things. In addition, some tools like GitHub have widgets to track test coverage and make it easy to integrate with CI tools
-- Quick feedback, fix any issues while you're there
-- CI for packages and other collaboration projects, in particular
-- Enjoy all the extra time you have now that it's easy to find functions, and regressions are less frequent
-- Future You will thank you
-
----
-
-
-class: panel-narrow-slide, left
-
-# Cheatsheet
-
-
 ---
 
 class: blank-slide, blue, center, middle
@@ -607,6 +342,8 @@ Amanda Gadrow
 amanda@rstudio.com
 
 ![](images/ajmcoqui_social_media_sig.png)
+
+.smaller[Slides and code will be available after the conference.]
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
