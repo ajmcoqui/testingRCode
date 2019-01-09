@@ -31,20 +31,6 @@ theme_set(thm)
 
 class: panel-narrow-slide, left
 
-# Brilliant intro of some kind
-
-My points:
-
-- What are you trying to accomplish?
-- What's the best way to do that?
-- Having a good workflow
-
-Reduce content on slides, more images?
-
----
-
-class: panel-narrow-slide, left
-
 # Data science through code
 
 Purpose of the code:
