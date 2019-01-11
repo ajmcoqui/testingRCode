@@ -35,12 +35,21 @@ class: panel-narrow-slide, left
 
 Purpose of the code:
 
-- To answer a question, or make a prediction, that would be difficult to address manually
-- To make it easier to reproduce and improve analyses
-- To collaborate with others
-- To share findings easily
-- To share useful functions internally or with the community
+- To answer a question, or make a prediction
 
+- To make it easier to reproduce and improve analyses
+
+- To collaborate with others on shared projects
+
+- To distribute findings easily
+
+- To distribute useful functions internally or with the community
+
+---
+
+class: panel-narrow-slide, left
+
+# Data science through code
 
 Code is written in the service of analysis
 
@@ -54,10 +63,16 @@ class: panel-narrow-slide, left
 
 Characteristics of good code:
 
+--
+
 - Reliability
+
 - Reproducibility
+
 - Flexibility
+
 - Longevity
+
 - Scalability
 
 ---
@@ -68,8 +83,15 @@ class: panel-narrow-slide, left
 
 How do we determine the quality of our code?
 
+--
+
 - Execution feedback
+
 - User feedback
+
+--
+
+- Measure it with **tests**: functional, integration, performance
 
 ---
 
@@ -77,38 +99,19 @@ class: panel-narrow-slide, left
 
 # Code quality matters
 
-How do we determine the quality of our code?
+Measure it with **tests**: functional, integration, performance
 
-- Execution feedback
-- User feedback
-- Measure it with tests: functional, integration, performance
+Make this part of your regular development cycle for: 
 
----
+--
 
-class: panel-narrow-slide, left
-
-# Code quality matters
-
-How do we determine the quality of our code?
-
-- Execution feedback
-- User feedback
-- Measure it with tests: functional, integration, performance
-- Make this part of your regular development cycle; build it in from the start
   - Faster updates
+
   - Quick feedback on impact of changes
+
   - Visibility into internal dependencies
-  - Easily trace function, meaning of code
 
----
-class: panel-narrow-slide, left
-
-# Writing tests
-
-- Ideally, cover all code paths
-- Practically, start with the major functions, inputs, and integration points
-- Run manual tests in the console during development
-- Convert them to coded tests when the basic functionality is established
+  - Easily trace the function, scope, and meaning of code
 
 ---
 
@@ -116,12 +119,19 @@ class: panel-narrow-slide, left
 
 # Writing tests
 
-- Ideally, cover all code paths
-- Practically, start with the major functions, inputs, and integration points
+- **Ideally**, cover all code paths
+
+- **Practically**, start with the major functions, inputs, and integration points
+
+--
+
 - Run manual tests in the console during development
+
 - Convert them to coded tests when the basic functionality is established
 
-.center[![Image credit: https://images-gmi-pmc.edge-generalmills.com/8890dc0a-ec93-4adf-b496-d6b264b56818.jpg](images/spaghetti.jpg)]
+--
+
+An ounce of prevention is worth a pound of cure.
 
 ---
 
@@ -131,12 +141,15 @@ class: panel-narrow-slide, left
 
 Test strategy
 
-- Start with the big picture
-- Pick a function
-- Determine the expected output (positive testing)
-- Brainstorm the ways it could go wrong (negative testing)
-- Figure out where it touches other code
-- Consider performance
+1. Start with the big picture
+
+2. Pick a function
+
+3. Determine the expected output (positive testing)
+
+4. Brainstorm the ways it could go wrong (negative testing)
+
+5. Figure out where it touches other code
 
 ---
 
@@ -144,10 +157,14 @@ class: panel-narrow-slide, left
 
 # Manual testing
 
-- Run in the console, usually while developing functions or larger scripts
-- Tend to focus on the positive, but don't forget negative and integration tests
+- Run in the console during development
+
+- Focus on the positive, but don't forget negative and integration tests
+
 - Try different inputs, data, or formats
+
 - Think of potential user mistakes
+
 - Be careful of your global environment
 
 ---
@@ -157,11 +174,18 @@ class: panel-narrow-slide, left
 # Coded testing
 
 - Transfer manual tests to coded tests
+
 - Unit tests, covering a small area of code
+
 - Update and expand as the functional code changes
-- Adapt functional code to make it easier to test
-- Run when the functional code changes, triggered manually or as part of your CI pipeline (if applicable)
-- Pay attention to the results
+
+- Run when the functional code changes, triggered manually or automatically
+
+- Adapt functional code to make it easier to test: 
+
+--
+
+.center[**hard to test == hard to maintain**]
 
 ---
 
@@ -182,6 +206,44 @@ usethis::use_testthat()
 # Create ‘tests/testthat/test-<name>.R’ and open it for editing
 usethis::use_test("name")
 
+```
+
+---
+
+class: panel-narrow-slide, left
+
+Here’s an example of a test file from the stringr package:
+
+```
+context("String length")
+library(stringr)
+
+test_that("str_length is number of characters", {
+  expect_equal(str_length("a"), 1)
+  expect_equal(str_length("ab"), 2)
+  expect_equal(str_length("abc"), 3)
+})
+
+test_that("str_length of factor is length of level", {
+  expect_equal(str_length(factor("a")), 1)
+  expect_equal(str_length(factor("ab")), 2)
+  expect_equal(str_length(factor("abc")), 3)
+})
+
+test_that("str_length of missing is missing", {
+  expect_equal(str_length(NA), NA_integer_)
+  expect_equal(str_length(c(NA, 1)), c(NA, 1))
+  expect_equal(str_length("NA"), 2)
+})
+```
+---
+
+class: panel-narrow-slide, left
+
+# Expectations
+
+``` {r echo=FALSE, out.width=700, out.height=617}
+knitr::include_graphics("images/testthat_ref.png")
 ```
 
 ---
@@ -209,13 +271,73 @@ testApp("path/to/app", "mytest") # individual test
 
 class: panel-narrow-slide, left
 
+# `shinytest`
+
+`shinytest::recordTest("my_shiny_app")`
+
+``` {r echo=FALSE}
+knitr::include_graphics("images/shinytest_recordTest.png")
+```
+
+---
+
+class: panel-narrow-slide, left
+
+# `shinytest`
+
+`shinytest::recordTest("my_shiny_app")`
+
+``` {r echo=FALSE}
+knitr::include_graphics("images/shinytest_snapshot.png")
+```
+
+---
+class: panel-narrow-slide, left
+
+# `shinytest`
+
+`shinytest::recordTest("my_shiny_app")`
+
+``` {r echo=FALSE}
+knitr::include_graphics("images/shinytest_record_console.png")
+knitr::include_graphics("images/shinytest_savedtest.png")
+```
+
+---
+
+class: panel-narrow-slide, left
+
+# `shinytest`
+
+`shinytest::testApp("my_shiny_app")`
+
+``` {r echo=FALSE}
+knitr::include_graphics("images/shinytest_testApp.png")
+```
+
+---
+
+class: panel-narrow-slide, left
+
+# `shinytest`
+
+`shinytest::testApp("my_shiny_app")`
+
+``` {r echo=FALSE}
+knitr::include_graphics("images/shinytest_diff.png")
+```
+
+---
+
+class: panel-narrow-slide, left
+
 # Designing for ease of testing
 
 Good software practices
 
 - Goals
   - Reliability, Reproducibility, Flexibility, Longevity, Scalability
-  - Modular design for ease of testing and maintenance (DRY, KISS)
+  - Modular design for ease of testing and maintenance
   - Good user experience
   - High degree of confidence
 
@@ -229,7 +351,7 @@ Good software practices
 
 - Goals
   - Reliability, Reproducibility, Flexibility, Longevity, Scalability
-  - Modular design for ease of testing and maintenance (DRY, KISS)
+  - Modular design for ease of testing and maintenance
   - Good user experience
   - High degree of confidence
 - Modular design
@@ -248,7 +370,7 @@ Good software practices
 
 - Goals
   - Reliability, Reproducibility, Flexibility, Longevity, Scalability
-  - Modular design for ease of testing and maintenance (DRY, KISS)
+  - Modular design for ease of testing and maintenance
   - Good user experience
   - High degree of confidence
 - Modular design
@@ -256,7 +378,7 @@ Good software practices
   - DRY: Don't Repeat Yourself
   - KISS: Keep It Simple, Stupid
   - Consistent code style
-- User experience
+- User experience (including Future You)
   - Ease of use
   - Error handling
 
@@ -278,8 +400,8 @@ class: panel-narrow-slide, left
 
 To read/watch:
 
-- [*R packages*](http://r-pkgs.had.co.nz/package.html), particularly the chapter on [Testing](http://r-pkgs.had.co.nz/tests.html)
-- [*Advanced R*](http://adv-r.had.co.nz/), for advice on good software design
+- [*R packages*](http://r-pkgs.had.co.nz/package.html) by Hadley Wickham, particularly the chapter on [Testing](http://r-pkgs.had.co.nz/tests.html)
+- [*Advanced R*](http://adv-r.had.co.nz/) by Hadley Wickham, for advice on good software design
 - [Jenny Bryan's video](https://www.youtube.com/watch?v=7oyiPBjLAWY) on ["Code smells and feels"](https://rstd.io/code-smells) from useR!2018
 
 ---
@@ -288,27 +410,25 @@ class: panel-narrow-slide, left
 
 # Resources
 
-To read/watch:
-
-- [*R packages*](http://r-pkgs.had.co.nz/package.html), particularly the chapter on [Testing](http://r-pkgs.had.co.nz/tests.html)
-- [*Advanced R*](http://adv-r.had.co.nz/)
-- [Jenny Bryan's video](https://www.youtube.com/watch?v=7oyiPBjLAWY) on ["Code smells and feels"](https://rstd.io/code-smells) from useR!2018
-
-To use:
-
 .pull-left[
+Unit Tests
 - [testthat](https://testthat.r-lib.org/)
-- [usethis](https://usethis.r-lib.org/)
-- [shinytest](https://rstudio.github.io/shinytest/articles/shinytest.html)
-- [profvis](https://rstudio.github.io/profvis/) (see also the ["Performance" chapter in *Advanced R*](http://adv-r.had.co.nz/Performance.html))
-- [shinyloadtest and shinycannon](https://rstudio.github.io/shinyloadtest/)
-]
-.pull-right[
-- [devtools](https://cran.rstudio.com/web/packages/devtools/index.html)
+  - [usethis](https://usethis.r-lib.org/)
+  - [devtools](https://cran.rstudio.com/web/packages/devtools/index.html)
 - [testit](https://github.com/yihui/testit)
 - [testthis](https://cran.rstudio.com/web/packages/testthis/index.html)
 - [assertive](https://bitbucket.org/richierocks/assertive)
 - [RUnit](https://cran.rstudio.com/web/packages/RUnit/index.html)
+
+Shiny Tests
+- [shinytest](https://rstudio.github.io/shinytest/articles/shinytest.html)
+]
+.pull-right[
+Performance Tests
+- [profvis](https://rstudio.github.io/profvis/) (see also the ["Performance" chapter in *Advanced R*](http://adv-r.had.co.nz/Performance.html))
+- [shinyloadtest and shinycannon](https://rstudio.github.io/shinyloadtest/)
+
+Code Coverage
 - [covr](https://cran.rstudio.com/web/packages/covr/index.html) and [covrpage](https://github.com/metrumresearchgroup/covrpage)
 ]
 
@@ -319,9 +439,11 @@ class: panel-narrow-slide, left
 # Next steps
 
 - Start small, and give it a go
+- Look for opportunities to improve the functional code to be more testable, and therefore, more maintainable
 - Make a habit of running all the tests locally before checking in code
+  - If you're not already using source control, see Jenny Bryan's [Happy Git and GitHub for the useR](https://happygitwithr.com/)
 - Add more tests over time
-- Integrate tests into CI pipeline
+- Integrate tests into Continuous Integration (CI) pipeline, if applicable
 - Bask in the warm glow of reliability, maintainability, and transparency
 
 ---
@@ -336,4 +458,4 @@ amanda@rstudio.com
 
 ![](images/ajmcoqui_social_media_sig.png)
 
-Slides and code will be available after the conference.
+Slides and code examples will be available after the conference.
