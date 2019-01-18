@@ -63,8 +63,6 @@ class: panel-narrow-slide, left
 
 Characteristics of good code:
 
---
-
 - Reliability
 
 - Reproducibility
@@ -137,60 +135,6 @@ An ounce of prevention is worth a pound of cure.
 
 class: panel-narrow-slide, left
 
-# Getting started
-
-Test strategy
-
-1. Start with the big picture
-
-2. Pick a function
-
-3. Determine the expected output (positive testing)
-
-4. Brainstorm the ways it could go wrong (negative testing)
-
-5. Figure out where it touches other code
-
----
-
-class: panel-narrow-slide, left
-
-# Manual testing
-
-- Run in the console during development
-
-- Focus on the positive, but don't forget negative and integration tests
-
-- Try different inputs, data, or formats
-
-- Think of potential user mistakes
-
-- Be careful of your global environment
-
----
-
-class: panel-narrow-slide, left
-
-# Coded testing
-
-- Transfer manual tests to coded tests
-
-- Unit tests, covering a small area of code
-
-- Update and expand as the functional code changes
-
-- Run when the functional code changes, triggered manually or automatically
-
-- Adapt functional code to make it easier to test: 
-
---
-
-.center[**hard to test == hard to maintain**]
-
----
-
-class: panel-narrow-slide, left
-
 # `testthat`
 
 ```{r eval=FALSE}
@@ -212,7 +156,7 @@ usethis::use_test("name")
 
 class: panel-narrow-slide, left
 
-Here’s an example of a test file from the stringr package:
+An example of a test file from the stringr package:
 
 ```
 context("String length")
@@ -240,11 +184,82 @@ test_that("str_length of missing is missing", {
 
 class: panel-narrow-slide, left
 
+An example of a test file from the stringr package:
+
+```
+context("String length")                            <- context describes the set of tests
+library(stringr)
+
+test_that("str_length is number of characters", {   <- tests exercise the output of
+  expect_equal(str_length("a"), 1)                      a single function with 1+ expectation
+  expect_equal(str_length("ab"), 2)
+  expect_equal(str_length("abc"), 3)                <- expectations describe the
+})                                                      expected result of a computation
+
+test_that("str_length of factor is length of level", {
+  expect_equal(str_length(factor("a")), 1)
+  expect_equal(str_length(factor("ab")), 2)
+  expect_equal(str_length(factor("abc")), 3)
+})
+
+test_that("str_length of missing is missing", {
+  expect_equal(str_length(NA), NA_integer_)
+  expect_equal(str_length(c(NA, 1)), c(NA, 1))
+  expect_equal(str_length("NA"), 2)
+})
+```
+---
+
+class: panel-narrow-slide, left
+
 # Expectations
 
 ``` {r echo=FALSE, out.width=700, out.height=617}
 knitr::include_graphics("images/testthat_ref.png")
 ```
+
+---
+
+class: panel-narrow-slide, left
+
+# Development workflow
+
+Once you’re set up, the workflow is simple:
+
+1. Modify your code or tests.
+
+2. Test your package with Ctrl/Cmd + Shift + T in RStudio, or `devtools::test()` in the console.
+
+3. Repeat until all tests pass.
+
+---
+
+class: panel-narrow-slide, left
+
+# Testing considerations
+
+User experience
+
+- Expected results for each function
+- Common mistakes or typos
+
+.pull-left[
+Test coverage
+
+- External interfaces
+- Fragile code
+- Input types
+]
+.pull-right[
+Test design
+
+- One test per behavior
+- One test per bug
+]
+
+--
+
+.center[**hard to test == hard to maintain**]
 
 ---
 
@@ -309,7 +324,7 @@ class: panel-narrow-slide, left
 
 # `shinytest`
 
-`shinytest::testApp("my_shiny_app")`
+`shinytest::testApp("my_shiny_app", "test_name")`
 
 ``` {r echo=FALSE}
 knitr::include_graphics("images/shinytest_testApp.png")
@@ -321,7 +336,7 @@ class: panel-narrow-slide, left
 
 # `shinytest`
 
-`shinytest::testApp("my_shiny_app")`
+`shinytest::testApp("my_shiny_app", "test_name")`
 
 ``` {r echo=FALSE}
 knitr::include_graphics("images/shinytest_diff.png")
@@ -337,9 +352,9 @@ Good software practices
 
 - Goals
   - Reliability, Reproducibility, Flexibility, Longevity, Scalability
-  - Modular design for ease of testing and maintenance
   - Good user experience
   - High degree of confidence
+  - Modular design for ease of testing and maintenance
 
 ---
 
@@ -351,9 +366,9 @@ Good software practices
 
 - Goals
   - Reliability, Reproducibility, Flexibility, Longevity, Scalability
-  - Modular design for ease of testing and maintenance
   - Good user experience
   - High degree of confidence
+  - Modular design for ease of testing and maintenance
 - Modular design
   - Decoupling, code isolation
   - DRY: Don't Repeat Yourself
@@ -370,9 +385,9 @@ Good software practices
 
 - Goals
   - Reliability, Reproducibility, Flexibility, Longevity, Scalability
-  - Modular design for ease of testing and maintenance
   - Good user experience
   - High degree of confidence
+  - Modular design for ease of testing and maintenance
 - Modular design
   - Decoupling, code isolation
   - DRY: Don't Repeat Yourself
@@ -390,25 +405,25 @@ class: panel-narrow-slide, left
 
 But remember:
 
-The tests won't ensure high quality in your script or application; they just verify that it's there.
+The tests won't **ensure** high quality in your script or application; they just **verify** it when it's there.
 
 ---
 
 class: panel-narrow-slide, left
 
-# Resources
-
-To read/watch:
+# Resources to read/watch:
 
 - [*R packages*](http://r-pkgs.had.co.nz/package.html) by Hadley Wickham, particularly the chapter on [Testing](http://r-pkgs.had.co.nz/tests.html)
 - [*Advanced R*](http://adv-r.had.co.nz/) by Hadley Wickham, for advice on good software design
 - [Jenny Bryan's video](https://www.youtube.com/watch?v=7oyiPBjLAWY) on ["Code smells and feels"](https://rstd.io/code-smells) from useR!2018
+- Charles Gray's [blog post](http://cantabile.rbind.io/posts/2019-01-05-its-not-not-the-math-its-the-code/)  on the benefits of a workflow based on `testthat::auto_test`
+- Winston Chang's [talk on testing shiny apps](https://www.rstudio.com/resources/videos/developing-robust-shiny-apps-with-regression-testing/) with `shinytest` from rstudio::conf(2018)
 
 ---
 
 class: panel-narrow-slide, left
 
-# Resources
+# Resources for testing packages:
 
 .pull-left[
 Unit Tests

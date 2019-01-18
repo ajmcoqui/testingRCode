@@ -11,5 +11,5 @@ test_that("uniquify does not handle factors", {
 })
 
 # test_that("uniquify handles factors", {
-#   expect_equal(uniquify(iris$Species), c("setosa", "versicolor", "verginica"))
+#   expect_equal(uniquify(iris$Species), c("setosa", "versicolor", "virginica"))
 # })

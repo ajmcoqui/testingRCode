@@ -15,7 +15,7 @@ clean <- function(vec) {
 }
 
 uniquify <- function(vec) {
-#  vec <- as.character(vec)
+  # vec <- as.character(vec)
   clean_values <- clean(vec)
   unique_values <- unique(clean_values)
   unique_values
